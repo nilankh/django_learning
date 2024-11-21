@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "drf_spectacular",
     # "polls",
     "snippets",
+    "celery_testing",
+    "django_celery_results",
 ]
 
 MIDDLEWARE = [
@@ -133,3 +135,15 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
 }
+# settings.py
+
+
+# RabbitMQ broker URL
+CELERY_BROKER_URL = "amqp://nilankh:password@localhost:5672/"
+
+# Result backend (optional, use if you want to store task results)
+CELERY_RESULT_BACKEND = "django-db"
+
+# Configure task serialization format
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
