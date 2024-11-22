@@ -54,15 +54,17 @@
 
 
 # functional based
-'''
+# '''
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from snippets.models import Snippet
 from snippets.serializer import SnippetSerializer
+from rest_framework.permissions import AllowAny
 
 
 @api_view(["GET", "POST"])
+@permission_classes([AllowAny])
 def snippet_list(request):
     """
     List all code snippets, or create a new snippet.
@@ -81,6 +83,7 @@ def snippet_list(request):
 
 
 @api_view(["GET", "PUT", "DELETE"])
+@permission_classes([AllowAny])
 def snippet_detail(request, pk):
     """
     Retrieve, update or delete a code snippet.
@@ -104,9 +107,13 @@ def snippet_detail(request, pk):
     elif request.method == "DELETE":
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+# '''
+
 '''
 
-
+# class based
 from snippets.models import Snippet
 from snippets.serializer import SnippetSerializer
 from django.http import Http404
@@ -158,3 +165,6 @@ class SnippetDetail(APIView):
         snippet = self.get_object(pk)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+        
+'''
