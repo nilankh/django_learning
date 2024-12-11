@@ -182,29 +182,40 @@ from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 
-class SnippetList(
-    mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView
-):
+# class SnippetList(
+#     mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView
+# ):
+#     queryset = Snippet.objects.all()
+#     serializer_class = SnippetSerializer
+#     permission_classes = [AllowAny]  # Allows access without authentication
+
+#     def get(self, request, *args, **kwargs):
+#         # The ListModelMixin provides the list method, When you include the ListModelMixin in your view class, it gives your class the functionality to retrieve and return a list of objects (usually serialized) from the database
+#         return self.list(request, *args, **kwargs)
+
+#     def post(self, request, *args, **kwargs):
+#         return self.create(request, *args, **kwargs)
+
+# class SnippetDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+#     queryset = Snippet.objects.all()
+#     serializer_class = SnippetSerializer
+
+#     def get(self, request, *args, **kwargs):
+#         return self.retrieve(request, *args, **kwargs)
+
+#     def put(self, request, *args, **kwargs):
+#         return self.update(request, *args, **kwargs)
+
+#     def delete(self, request, *args, **kwargs):
+#         return self.destroy(request, *args, **kwargs)
+
+
+class SnippetList(generics.ListCreateAPIView):
+    permission_classes = [AllowAny]
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
-    permission_classes = [AllowAny]  # Allows access without authentication
 
-    def get(self, request, *args, **kwargs):
-        # The ListModelMixin provides the list method, When you include the ListModelMixin in your view class, it gives your class the functionality to retrieve and return a list of objects (usually serialized) from the database
-        return self.list(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-    
-class SnippetDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
-
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-    
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-    
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
