@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "snippets",
     "celery_testing",
     "django_celery_results",
+    "library_management_sys",
 ]
 
 MIDDLEWARE = [
