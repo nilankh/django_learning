@@ -26,8 +26,7 @@ class LoanViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['patch'])
     def mark_as_returned(self, request, pk=None):
         loan = self.get_object()
-        print('line 29', loan)
-        return
+    
         loan.returned = True
         loan.return_date = request.data.get("return_date")
         loan.save()
